@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tee Lab - Iniciar Sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Russo+One&family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <header class="header">
+        <a href="index.php">
+            <img class="header__logo" src="img/logoconnombre.png" alt="Logotipo">
+        </a>
+    </header>
+
+    <nav class="navegacion">
+        <a class="navegacion__enlace" href="index.php">Tienda</a>
+        <a class="navegacion__enlace" href="nosotros.php">Nosotros</a>
+        <a class="navegacion__enlace" href="contacto.php">Contacto</a>
+    </nav>
+
+    <section>
+        <h1>Iniciar Sesión</h1>
+        <form class="formulario-login" method="post" action="login.php">
+            <fieldset>
+                <legend>Ingresa tus datos</legend>
+
+                <div class="contenedor-campos">
+                    <div class="campo">
+                        <label>Correo</label>
+                        <input class="input-text" type="email" name="correo" placeholder="Tu correo">
+                    </div>
+
+                    <div class="campo">
+                        <label>Contraseña</label>
+                        <input class="input-text" type="password" name="password" placeholder="Tu contraseña">
+                    </div>
+                </div> <!-- .contenedor-campos -->
+
+                <div>
+                    <input class="boton" type="submit" value="Iniciar Sesión">
+                </div>
+            </fieldset>
+        </form>
+
+        <p class=" registrate">¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a>.</p>
+    </section>
+  
+    <footer class="footer">
+        <p class="footer__texto">Tee Lab - Todos los derechos Reservados 2023</p>
+    </footer>
+
+</body>
+</html>

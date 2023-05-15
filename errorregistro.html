@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Tee Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Russo+One&family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header">
+    <a href="index.php">
+        <img class="header__logo" src="img/logoconnombre.png" alt="Logotipo">
+    </a>
+</header>
+
+<nav class="navegacion">
+    <a class="navegacion__enlace" href="index.php">Tienda</a>
+    <a class="navegacion__enlace" href="nosotros.php">Nosotros</a>
+    <a class="navegacion__enlace" href="contacto.php">Contácto</a>
+    <a class="navegacion__enlace" href="login.html">Iniciar Sesión</a>
+
+</nav>
+
+<section>
+    <h1>Registro</h1>
+    <form class="formulario-registro" action="registro.php" method="post">
+        <fieldset>
+            <legend>El usuario introducido ya está registrado</legend>
+
+            <div class="contenedor-campos">
+                <div class="campo">
+                    <label>Nombre</label>
+                    <input class="input-text" type="text" placeholder="Tu Nombre" name="nombre" required>
+                </div>
+
+                <div class="campo">
+                    <label>Apellidos</label>
+                    <input class="input-text" type="text" placeholder="Tus Apellidos" name="apellidos" required>
+                </div>
+
+                <div class="campo">
+                    <label>Correo</label>
+                    <input class="input-text" type="email" placeholder="Tu Email" name="correo" required>
+                </div>
+                <div class="campo">
+                    <label>Contraseña</label>
+                    <input class="input-text" type="password" name="password" placeholder="Tu contraseña">
+                </div>
+
+                <div class="campo">
+                    <label>Teléfono</label>
+                    <input class="input-text" type="tel" placeholder="Tu Teléfono" name="telefono" required>
+                </div>
+
+                <div class="campo">
+                    <label>Dirección</label>
+                    <textarea class="input-text" placeholder="Tu Dirección" name="direccion" required></textarea>
+                </div>
+            </div> <!-- .contenedor-campos -->
+             <div class="campo-error">
+
+                <?php
+                    session_start();
+                    if (isset($_SESSION['error'])) {
+                        echo $_SESSION['error'];
+                        unset($_SESSION['error']);
+                    }
+                ?>
+            </div>
+            
+            <div>
+                <input class="boton" type="submit" value="Registrarse">
+            </div>
+        </fieldset>
+    </form>
+</section>
+
+<footer class="footer">
+    <p class="footer__texto">Tee Lab - Todos los derechos Reservados 2023</p>
+</footer>
+
+</body>
+</html>
