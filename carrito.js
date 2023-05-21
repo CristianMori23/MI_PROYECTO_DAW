@@ -133,8 +133,8 @@ function eliminarDelCarrito(id) {
 
 function vaciarCarrito() {
     sessionStorage.removeItem("carrito");
-    actualizarContadorCarrito();
-    mostrarCarrito();
+    // actualizarContadorCarrito();
+    // mostrarCarrito();
 }
 
 document.addEventListener("DOMContentLoaded", function () {

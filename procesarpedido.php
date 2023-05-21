@@ -45,15 +45,14 @@ if (isset($_SESSION["carrito"]) && is_array($_SESSION["carrito"])) {
    // Variables para almacenar los valores del carrito
 $id_producto = "";
 $talla_producto = "";
-$contenidoImagen = "";
 $importe_total =0;
 
 foreach ($carrito as $producto) {
     $id_producto = $producto->id;
     $talla_producto = $producto->talla;
-    $contenidoImagen = $producto->imagen;
     $importe_total += $producto->precio * $producto->cantidad;
 }
+$imagen_producto = $_SESSION['imagen'];
 }
 // Preparar la consulta SQL para insertar el pedido en la tabla pedidos
 $sql = "INSERT INTO pedidos (fecha_pedido, id_cliente, correo_cliente, id_producto, talla_producto, imagen_producto, importe_total) VALUES (NOW(), ?, ?, ?, ?, ?, ?)";

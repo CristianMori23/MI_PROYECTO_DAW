@@ -119,6 +119,12 @@
     <footer class="footer">
         <p class="footer__texto">Tee Lab - Todos los derechos Reservados 2023</p>
     </footer>
+    <script src="carrito.js"></script>
+
+    <script>
+        debugger
+        vaciarCarrito();
+    </script>
 
 </body>
 </html>

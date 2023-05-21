@@ -98,42 +98,44 @@ $total_carrito = 0; // inicializa la variable
         </div>
     </nav>
     <main class="contenedor">
-        <h1>Tu carrito de compras</h1>
-        <table id="tabla-carrito" class="tabla-carrito">
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Talla</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Total</th>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody id="carrito-productos">
-                <!-- Aquí se agregarán las filas con los productos del carrito -->
-            </tbody>
-        </table>
-        <div id="adjuntar-imagen">
-            <h2>Adjunta la imagen para tu camiseta:</h2>
-            <input type="file" id="imagen-input" name="imagen-input">
-            <div id="imagen-preview"></div>
-        </div>
-        <div class="carrito-total">
-            <p>Total: <span id="carrito-total">0€</span></p>
-        </div>
+        <form method="POST" action="pasareladepago.php" enctype="multipart/form-data">
 
-        <?php if ($nombre_usuario == ""): ?>
-            <p>Debes iniciar sesión para poder pagar.</p>
-            <a class="navegacion__enlace" href="login.html">Iniciar sesión</button>
-            <?php else: ?>
-                <form method="POST" action="pasareladepago.php">
+            <h1>Tu carrito de compras</h1>
+            <table id="tabla-carrito" class="tabla-carrito">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Talla</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody id="carrito-productos">
+                    <!-- Aquí se agregarán las filas con los productos del carrito -->
+                </tbody>
+            </table>
+            <div id="adjuntar-imagen">
+                <h2>Adjunta la imagen para tu camiseta:</h2>
+                <input type="file" id="imagen-input" name="imagen-input">
+                <div id="imagen-preview"></div>
+            </div>
+            <div class="carrito-total">
+                <p>Total: <span id="carrito-total">0€</span></p>
+            </div>
+
+            <?php if ($nombre_usuario == ""): ?>
+                <p>Debes iniciar sesión para poder pagar.</p>
+                <a class="navegacion__enlace" href="login.html">Iniciar sesión</button>
+                <?php else: ?>
                     <!-- <input type="hidden" name="carrito" value='<?php echo json_encode($_SESSION["carrito"]); ?>' /> -->
                     <input type="hidden" id="carritoHidden" name="carrito" value="aaaaa" />
                     <button type="submit" id="pagar-btn">Pagar pedido</button>
                     <!-- </div> -->
-                </form>
-            <?php endif; ?>
+                <?php endif; ?>
+        </form>
+
     </main>
 
 
