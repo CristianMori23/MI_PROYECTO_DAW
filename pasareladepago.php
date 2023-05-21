@@ -4,31 +4,9 @@
     // Inicio de sesión
     session_start();
 
-    function calcularImporteTotal() {
-        $carrito = $_SESSION["carrito"];
-        $importe_total = 0;
-    
-        for ($i = 0; $i < count($carrito); $i++) {
-            $importe_total += $carrito[$i]["precio"] * $carrito[$i]["cantidad"];
-        }
-    
-        return $importe_total;
-    }
-    // Decodificar los productos del carrito enviados desde el formulario anterior
-$productos_encoded = $_POST["carrito"];
-$productos = json_decode($productos_encoded, true);
-
-$importe_total = calcularImporteTotal();
-    
-    $importe_total = calcularImporteTotal();
-
-
-    // Iniciar carrito si no existe
-    if (!isset($_SESSION["carrito"])) {
-        $_SESSION["carrito"] = [];
-    }
-    
     $nombre_usuario = "";
+
+    $_SESSION['carrito'] = json_decode($_POST['carrito']);
 
     // Comprobar si hay una sesión de usuario iniciada
     if (isset($_SESSION["usuario"])) {
@@ -57,6 +35,11 @@ $importe_total = calcularImporteTotal();
         }
         $conn->close();
     }
+
+    function calcularImporteTotal() {
+
+    }
+
     ?>
 
 <head>

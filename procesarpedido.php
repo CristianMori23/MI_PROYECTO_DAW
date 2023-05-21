@@ -1,6 +1,7 @@
 <?php
 // Inicia la sesión
 session_start();
+ 
 // Conectar a la base de datos
 $servername = "localhost";
 $username = "root";
@@ -8,6 +9,7 @@ $password = "";
 $dbname = "bd_tee_lab";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
+
 // Verificar la conexión a la base de datos
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
@@ -36,27 +38,37 @@ if (isset($_SESSION["usuario"])) {
         $id_cliente = $_SESSION["usuario"];
     }
 }
-// Consultar el importe total del pedido en la tabla "pedidos"
-$importe_total = 0;
-foreach ($_SESSION["carrito"] as $producto) {
-    $importe_total += $producto["precio"] * $producto["cantidad"];
+
+if (isset($_SESSION["carrito"]) && is_array($_SESSION["carrito"])) {
+    $carrito = $_SESSION["carrito"];
+
+   // Variables para almacenar los valores del carrito
+$id_producto = "";
+$talla_producto = "";
+$contenidoImagen = "";
+$importe_total =0;
+
+foreach ($carrito as $producto) {
+    $id_producto = $producto->id;
+    $talla_producto = $producto->talla;
+    $contenidoImagen = $producto->imagen;
+    $importe_total += $producto->precio * $producto->cantidad;
 }
-
-// Consulta SQL para insertar el pedido en la tabla
-$sql = "INSERT INTO pedidos (fecha_pedido, id_cliente, correo_cliente,id_producto,talla_producto, imagen_producto, importe_total) VALUES (NOW(), ?, ?, ?, ?, ?, ?)";
-
+}
+// Preparar la consulta SQL para insertar el pedido en la tabla pedidos
+$sql = "INSERT INTO pedidos (fecha_pedido, id_cliente, correo_cliente, id_producto, talla_producto, imagen_producto, importe_total) VALUES (NOW(), ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
+$stmt->bind_param("isissd", $id_cliente, $correo_cliente, $id_producto, $talla_producto, $imagen_producto, $importe_total);
 
-$stmt->bind_param("issdsd", $id_cliente, $correo_cliente, $id_producto, $talla_producto, $contenidoImagenEscapado, $importe_total);
-// Ejecutar la consulta SQL
+// Insertar el pedido en la tabla pedidos
 if ($stmt->execute()) {
-    // Si el pedido se insertó correctamente, obtener los detalles del pedido en la tabla detalles_pedido
-    $id_pedido = $conn->insert_id;
+    $id_pedido = $stmt->insert_id;
 
+    // Preparar la consulta SQL para insertar los detalles del pedido en la tabla detalles_pedido
     foreach ($_SESSION["carrito"] as $producto) {
-        $id_producto = $producto["id"];
-        $cantidad = $producto["cantidad"];
-        $subtotal = $producto["subtotal"];
+        $id_producto = $producto->id;
+        $cantidad = $producto->cantidad;
+        $subtotal = $producto->precio * $producto->cantidad;
 
         $sql_detalle = "INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, subtotal) VALUES (?, ?, ?, ?)";
 
@@ -66,18 +78,22 @@ if ($stmt->execute()) {
         if (!$stmt_detalle->execute()) {
             echo "Error al insertar detalle del pedido: " . $stmt_detalle->error;
             $stmt_detalle->close();
+            $stmt->close();
             $conn->close();
             exit();
-        }
-
-        $stmt_detalle->close();
+        };
     }
-    // Eliminar los productos del carrito
+
+    
+    $stmt->close();
+
+    // Limpiar el carrito
     unset($_SESSION["carrito"]);
 
     header("Location: pedidorealizado.php");
 } else {
-    echo "Error al insertar el pedido: " . $stmt->error;
+    echo "Error al procesar el pedido: " . $stmt->error;
 }
+
 $conn->close();
 ?>

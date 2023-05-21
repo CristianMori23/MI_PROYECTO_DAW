@@ -26,7 +26,7 @@ function agregarAlCarrito(id, nombre, talla, precio) {
             nombre: nombre,
             talla: talla, 
             precio: precioNumerico,
-            cantidad: 1
+            cantidad: 1,
         };
         carrito.push(nuevoItem);
     }
@@ -108,58 +108,6 @@ function mostrarCarrito() {
     let carritoTotal = document.getElementById("carrito-total");
     carritoTotal.textContent = total.toFixed(2) + "€";
 }
-
-function mostrarContenidoCarrito() {
-    let carrito = sessionStorage.getItem("carrito");
-
-    if (carrito === null) {
-        carrito = [];
-    } else {
-        carrito = JSON.parse(carrito);
-    }
-
-    const tbody = document.getElementById("carrito-productos");
-    tbody.innerHTML = ""; // Limpiar el tbody antes de agregar el contenido
-
-    carrito.forEach(function (item) {
-        let fila = document.createElement("tr");
-
-        let totalItem = item.precio * item.cantidad;
-
-        fila.innerHTML = `
-            <td>${item.nombre}</td>
-            <td>${item.talla}</td>
-            <td>${item.precio.toFixed(2)}€</td>
-            <td>${item.cantidad}</td>
-            <td>${totalItem.toFixed(2)}€</td>
-            <td><button onclick="eliminarDelCarrito(${item.id})">Eliminar</button></td>
-        `;
-
-        tbody.appendChild(fila);
-     
-    });
-
-    // Calcular el total general
-    let totalGeneral = 0;
-    carrito.forEach(function (item) {
-        totalGeneral += item.precio * item.cantidad;
-    });
-
-    // Mostrar el total general en la última renglón de la tabla
-    let filaTotal = document.createElement("tr");
-    filaTotal.innerHTML = `
-        <td></td>
-        <td>></td>
-        <td></td>
-        <td></td>
-        <td><strong>Total: ${totalGeneral.toFixed(2)}€</strong></td>
-        <td></td>
-    `;
-    tbody.appendChild(filaTotal);
-  
-    actualizarContadorCarrito();
-    mostrarCarrito();
-}
 function eliminarDelCarrito(id) {
     let carrito = sessionStorage.getItem("carrito");
 
@@ -181,6 +129,8 @@ function eliminarDelCarrito(id) {
     mostrarCarrito();
 }
 
+
+
 function vaciarCarrito() {
     sessionStorage.removeItem("carrito");
     actualizarContadorCarrito();
@@ -188,7 +138,7 @@ function vaciarCarrito() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    mostrarContenidoCarrito();
+   
     mostrarCarrito();
     actualizarContadorCarrito();
 });

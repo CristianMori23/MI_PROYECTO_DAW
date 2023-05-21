@@ -347,6 +347,7 @@ form textarea {
 }
 .campo textarea {
     height: 20rem;
+    margin-top: 2rem;
 }
 
 .input-text {
@@ -357,6 +358,7 @@ form textarea {
 }
 .boton{
     font-family: var(--fuentePrincipal);
+    padding-top: 1rem;
 }
 @media (min-width: 768px) {
     .boton {
